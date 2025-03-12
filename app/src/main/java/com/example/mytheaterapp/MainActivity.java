@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Find Buttons Ids
+        button_chat = findViewById(R.id.button_chat);
 
 
         ArrayList<String> cast = new ArrayList<>(Arrays.asList("ena", "duo", "tria"));
@@ -36,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
         Play play2 = new Play("2o_ergo", cast, "comedy", "ewqeq qweqwe sadasfe qeewqewq asfas asdq weq", "gladiator" );
 
 
+        // button functionality to open ChatBot
+        button_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ChatBot.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
