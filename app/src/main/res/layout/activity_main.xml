@@ -42,7 +42,7 @@
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="0.5dp"
         app:dividerColor="@color/white"
         android:layout_above="@id/bottom_nav"
         android:id="@+id/divider"/>
@@ -57,6 +57,7 @@
         app:itemIconSize="35dp"
         app:itemIconTint="@color/primary_color"
         android:background="@color/secondary_color">
+
 
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

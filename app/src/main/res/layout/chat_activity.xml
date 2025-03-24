@@ -5,15 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ChatBot">
+    tools:context=".ChatBotActivity">
 
     <!-- Chat history scroll view -->
+
+    <!-- Input Row (EditText + Button) -->
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="8dp">
+
+
 
         <LinearLayout
             android:id="@+id/chat_container"
@@ -22,20 +26,72 @@
             android:orientation="vertical" />
     </ScrollView>
 
-    <!-- Input Row (EditText + Button) -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/greetingOptionsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/infoButtonOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="What performances are currently played?"
+                android:textColor="@color/white"
+                android:background="@drawable/user_chat_shape"
+                android:textAllCaps="false"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/bookButtonOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/user_chat_shape"
+                android:text="I want to book tickets!"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/supportButtonOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I wish to speak to a human."
+                android:textColor="@color/white"
+                android:background="@drawable/user_chat_shape"
+                android:textAllCaps="false"
+                android:layout_marginBottom="10dp"/>
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp">
 
+
         <!-- User input field -->
         <EditText
-            android:id="@+id/user_input"
+            android:id="@+id/userEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:hint="Πληκτρολογήστε το αίτημά σας..."
+            android:hint="type here ..."
             android:padding="8dp" />
 
         <!-- Send button -->
@@ -43,8 +99,9 @@
             android:id="@+id/send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Αποστολή"
-            android:padding="8dp" />
+            android:text="send"
+            android:padding="8dp"
+            />
     </LinearLayout>
 
 </LinearLayout>
