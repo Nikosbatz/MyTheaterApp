@@ -1,7 +1,9 @@
 package com.example.mytheaterapp;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,11 +30,20 @@ public class ChatBotActivity extends AppCompatActivity {
     private Map<String, String> frames = new HashMap<>();
     private ArrayList<Button> initialOptionsButtons = new ArrayList<>();
     private LinearLayout greetingOptionsLayout;
+    private ChatBot chat_bot;
 
     private int misunderstandingCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        try {
+            this.chat_bot = new ChatBot(this);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+
         frames.put("Performance", null);
         frames.put("Date", null);
         frames.put("time", null);
@@ -95,10 +108,37 @@ public class ChatBotActivity extends AppCompatActivity {
     private void handleUserInput(String input) {
         addMessage("🧑‍💬 " + input, true);
 
+        // Get response from the ChatBot based on the user input
+        String response = chat_bot.analyzeUserInput(input);
+
+        HashMap <String, String> frames = chat_bot.getFrames();
+        String currentIntentName = chat_bot.getCurrentIntentName();
+        boolean isBookingFrameComplete = true;
+
+        // Check if all the frames are completed
+        if (currentIntentName != null && currentIntentName.equals("book_ticket")){
+            for (String value : frames.values()){
+                if (value == null){
+                    isBookingFrameComplete = false;
+                    break;
+                }
+            }
+            // if all frames are complete and the booking frame is completed transfer client to payment environment
+            if (isBookingFrameComplete){
+                response = "You are being transfered to a safe enviroment to place your order based on the details you provided...";
+
+                // Build Ticket object and pass it to the PaymentEnviroment activity
+                Ticket ticket = new Ticket(frames.get("performance"), frames.get("date"), frames.get("number_of_tickets"));
+                Intent intent = new Intent(ChatBotActivity.this, PaymentEnviroment.class);
+                intent.putExtra("ticket", ticket);
+                startActivity(intent);
+            }
+        }
+
+        addMessage(response, false);
 
 
-        String response;
-
+        /*
         if (input.toLowerCase().contains("info") || input.toLowerCase().contains("information")) {
             response = "🎭 ";
             misunderstandingCount = 0;
@@ -122,9 +162,9 @@ public class ChatBotActivity extends AppCompatActivity {
             } else {
                 response = "❓ Συγγνώμη, δεν καταλαβαίνω. Μπορείτε να το διατυπώσετε διαφορετικά;";
             }
-        }
+        }*/
 
-        addMessage(response, false);
+
     }
 
 

@@ -1,0 +1,31 @@
+{
+  "intents": [
+    {
+      "name": "book_ticket",
+      "wordlist": ["book", "reserve", "booking", "reservation"],
+      "entities": [
+        { "name": "performance" , "wordlist": ["1", "2", "performance1", "performance2", "a"]},
+        { "name": "date", "wordlist": ["afternoon", "night", "on", "at", "by", "o"]},
+        { "name": "number_of_tickets", "wordlist": ["1","2","3","4","5", "one","two","three","four","five"]}
+      ]
+    },
+    {
+      "name": "cancel_ticket",
+      "wordlist": ["cancel", "refund"],
+      "entities": [
+        { "name": "ticket_id", "wordlist": ["111", "222", "333", "444"]}
+      ]
+    },
+    {
+      "name": "request_info",
+      "wordlist": ["info", "information", "details", "more"],
+      "entities": [
+        { "name": "performance", "wordlist": ["first", "second", "performance1", "performance2"]}
+      ]
+    },
+    {
+      "name": "request_support",
+      "wordlist": ["support", "assistance", "talk to a human", "contact a human"]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chat_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ChatBotActivity"
+    android:background="#CCE4E4E4">
+
+
+    <com.vinaygaba.creditcardview.CreditCardView
+        android:id="@+id/card"
+        android:layout_width="fill_parent"
+        android:layout_height="225dp"
+        android:background="@drawable/cardbackground_sky"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        app:cardNumber=""
+        app:cardName=""
+        app:cardNumberTextColor="#cccccc"
+        app:cardNumberFormat="masked_all_but_last_four"
+        app:cardNameTextColor="#cccccc"
+        app:type="auto"
+        app:expiryDate = ""
+        app:expiryDateTextColor="#cccccc"
+        app:isEditable="true"
+        app:validTillTextColor="#cccccc"
+        app:hintTextColor = "#cccccc"
+        />
+
+    <EditText
+        android:id="@+id/cardNumber"
+        android:layout_marginTop="60dp"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:maxLength="16"
+        android:gravity="center"
+        android:hint="card number"
+        android:inputType="number"
+        android:background="#D2D2D2"/>
+    
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <EditText
+            android:id="@+id/expDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="#D2D2D2"
+            android:textSize="20dp"
+            android:maxLength="4"
+            android:layout_margin="5dp"
+            android:inputType="date"
+            android:hint="Exp. date"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/cvc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:inputType="numberPassword"
+            android:textSize="20dp"
+            android:hint="cvc"
+            android:maxLength="3"
+            android:background="#D2D2D2"/>
+
+        
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/cardHolderName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#D2D2D2"
+        android:textSize="20dp"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:hint="Holders name"/>
+
+    <Button
+        android:id="@+id/payButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="Pay Now"
+        android:textAllCaps="false"
+        android:background="@drawable/rounded_border"
+        android:textColor="@color/white"
+        android:layout_margin="100dp"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:indeterminateTint="@color/primary_color"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        />
+
+</LinearLayout>

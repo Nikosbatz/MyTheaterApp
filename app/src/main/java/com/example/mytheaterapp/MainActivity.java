@@ -1,5 +1,6 @@
 package com.example.mytheaterapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.io.File;
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottom_nav;
     MenuItem button_chat;
@@ -20,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("error", "PRIN TO LISTENER");
+        // For DEBUGGING purposes
+        deleteInternalFiles(this);
+        //-------------
 
         // Find Buttons Ids
         bottom_nav = findViewById(R.id.bottom_nav);
@@ -28,14 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        /*ArrayList<String> cast = new ArrayList<>(Arrays.asList("ena", "duo", "tria"));
-        Play play1 = new Play("1o_ergo", cast, "comedy", "ewqeq qweqwe sadasfe qeewqewq asfas asdq weq", "gladiator" );
-
-        cast = new ArrayList<>(Arrays.asList("ena", "duo", "tria"));
-        Play play2 = new Play("2o_ergo", cast, "comedy", "ewqeq qweqwe sadasfe qeewqewq asfas asdq weq", "gladiator" );
-        */
-
-        Log.d("error", "PRIN TO LISTENER");
         // button functionality to open ChatBot
         bottom_nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -50,11 +48,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
 
-
-
-
-
-
+    private void deleteInternalFiles(Context context) {
+        File dir = context.getFilesDir(); // Get internal storage directory
+        for (File file: Objects.requireNonNull(dir.listFiles())){
+            file.delete();
+        }
     }
 }
