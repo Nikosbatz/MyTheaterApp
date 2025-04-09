@@ -31,7 +31,6 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         holder.performanceTextView.setText(ticket.getPerformance());
         holder.seatsTextView.setText(ticket.getSeats().toString().replaceAll("[\\[\\],]", ""));
         holder.idTextView.setText(ticket.getId());
-
     }
 
     @Override

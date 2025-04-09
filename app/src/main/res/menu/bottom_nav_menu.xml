@@ -2,14 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/button_chat"
+        android:id="@+id/home_icon"
+        android:icon="@drawable/home_icon"
+        android:title="Home" />
+    <item
+        android:id="@+id/chat_icon"
         android:icon="@drawable/chat_icon"
-        android:title="chat" />
+        android:title="ChatBot" />
 
     <item
-        android:id="@+id/button_support"
-        android:icon="@drawable/support_icon"
-        android:title="support" />
+        android:id="@+id/myTickets_icon"
+        android:icon="@drawable/book_online_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+        android:title="My Tickets" />
 
 
 </menu>

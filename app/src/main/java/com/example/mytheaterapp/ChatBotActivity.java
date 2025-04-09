@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ public class ChatBotActivity extends AppCompatActivity {
 
     private LinearLayout chatContainer;
     private EditText userEditText;
-    private Button sendButton;
+    private ImageButton sendButton;
     private ScrollView scrollView;
     private Map<String, String> frames = new HashMap<>();
     private ArrayList<Button> initialOptionsButtons = new ArrayList<>();

@@ -7,6 +7,33 @@
     android:orientation="vertical"
     tools:context=".ChatBotActivity">
 
+
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/primary_color">
+
+        <TextView
+            android:layout_marginTop="10sp"
+            android:id="@+id/logo_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:text="Chat Bot"
+            android:textColor="@color/white"
+            android:textSize="35sp" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_marginTop="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+    </LinearLayout>
+
+
     <!-- Chat history scroll view -->
 
     <!-- Input Row (EditText + Button) -->
@@ -88,14 +115,18 @@
         <!-- User input field -->
         <EditText
             android:id="@+id/userEditText"
+            android:background="@drawable/chat_activity_input_background"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:hint="type here ..."
+            android:hint="Message"
+            android:importantForAutofill="no"
+            android:inputType="textVisiblePassword|textNoSuggestions"
             android:padding="8dp" />
 
         <!-- Send button -->
-        <Button
+        <ImageButton
+            android:background="@drawable/send_icon"
             android:id="@+id/send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

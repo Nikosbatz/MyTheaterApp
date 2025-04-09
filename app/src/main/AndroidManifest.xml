@@ -39,11 +39,7 @@
             android:exported="true">
 
         </activity>
-        <activity
-            android:name=".MyTickets"
-            android:exported="true">
 
-        </activity>
     </application>
 
 </manifest>

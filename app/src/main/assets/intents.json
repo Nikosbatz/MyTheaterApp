@@ -4,7 +4,7 @@
       "name": "book_ticket",
       "wordlist": ["book", "reserve", "booking", "reservation"],
       "entities": [
-        { "name": "performance" , "wordlist": ["1", "2", "performance1", "performance2", "a"]},
+        { "name": "performance" , "wordlist": ["performance1", "performance2", "a"]},
         { "name": "date", "wordlist": ["afternoon", "night", "on", "at", "by", "o"]},
         { "name": "number_of_tickets", "wordlist": ["1","2","3","4","5", "one","two","three","four","five"]}
       ]

@@ -11,6 +11,7 @@
 
 
     <LinearLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -32,11 +33,15 @@
             android:layout_height="1dp"
             app:dividerColor="@color/secondary_color"/>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
     </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_nav"
+        android:layout_below="@id/header_layout"/>
 
 
 
@@ -54,7 +59,7 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_nav_menu"
         app:itemTextColor="@color/white"
-        app:itemIconSize="35dp"
+        app:itemIconSize="27dp"
         app:itemIconTint="@color/primary_color"
         android:background="@color/secondary_color">
 

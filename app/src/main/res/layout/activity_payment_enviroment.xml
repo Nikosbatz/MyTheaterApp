@@ -6,28 +6,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ChatBotActivity"
-    android:background="#CCE4E4E4">
+    android:background="#CCEBEBEB">
 
 
     <com.vinaygaba.creditcardview.CreditCardView
+        android:layout_margin="10dp"
         android:id="@+id/card"
         android:layout_width="fill_parent"
-        android:layout_height="225dp"
-        android:background="@drawable/cardbackground_sky"
+        android:layout_height="224dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        app:cardNumber=""
+        android:background="@drawable/cardbackground_sky"
         app:cardName=""
-        app:cardNumberTextColor="#cccccc"
-        app:cardNumberFormat="masked_all_but_last_four"
         app:cardNameTextColor="#cccccc"
-        app:type="auto"
-        app:expiryDate = ""
+        app:cardNumber=""
+        app:cardNumberFormat="masked_all_but_last_four"
+        app:cardNumberTextColor="#cccccc"
+        app:expiryDate=""
         app:expiryDateTextColor="#cccccc"
+        app:hintTextColor="#cccccc"
         app:isEditable="true"
-        app:validTillTextColor="#cccccc"
-        app:hintTextColor = "#cccccc"
-        />
+        app:type="auto"
+        app:validTillTextColor="#cccccc" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:backgroundTint="#B2B2B2"
+        android:layout_margin="20dp"
+        android:background="@drawable/rounded_border"
+        android:paddingTop="30dp">
 
     <EditText
         android:id="@+id/cardNumber"
@@ -40,26 +49,28 @@
         android:gravity="center"
         android:hint="card number"
         android:inputType="number"
-        android:background="#D2D2D2"/>
-    
+        android:backgroundTint="@color/white"
+        android:background="@drawable/rounded_border"/>
+
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        
+
         <EditText
             android:id="@+id/expDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:background="#D2D2D2"
             android:textSize="20dp"
             android:maxLength="4"
             android:layout_margin="5dp"
             android:inputType="date"
             android:hint="Exp. date"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/rounded_border"/>
 
         <EditText
             android:id="@+id/cvc"
@@ -73,9 +84,10 @@
             android:textSize="20dp"
             android:hint="cvc"
             android:maxLength="3"
-            android:background="#D2D2D2"/>
+            android:backgroundTint="@color/white"
+            android:background="@drawable/rounded_border"/>
 
-        
+
     </LinearLayout>
 
     <EditText
@@ -83,10 +95,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#D2D2D2"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/rounded_border"
         android:textSize="20dp"
         android:layout_margin="5dp"
         android:gravity="center"
+        android:inputType="textVisiblePassword|textNoSuggestions"
         android:hint="Holders name"/>
 
     <Button
@@ -97,8 +111,9 @@
         android:text="Pay Now"
         android:textAllCaps="false"
         android:background="@drawable/rounded_border"
+        android:backgroundTint="@color/primary_color"
         android:textColor="@color/white"
-        android:layout_margin="100dp"/>
+        android:layout_margin="40dp"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -107,6 +122,9 @@
         android:indeterminateTint="@color/primary_color"
         android:layout_gravity="center"
         android:visibility="invisible"
-        />
+        android:layout_marginBottom="10dp"/>
+    </LinearLayout>
 
 </LinearLayout>
+
+

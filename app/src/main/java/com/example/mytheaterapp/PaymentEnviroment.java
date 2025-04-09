@@ -125,6 +125,7 @@ public class PaymentEnviroment extends AppCompatActivity {
             }
         });//---------------------
 
+        // Complete Payment Action
         pay_button.setOnClickListener(v -> {
             if (card_number.getText().toString().length() != 16){
                 card_number.setError("Card Number must consist of 16 numbers!");
@@ -136,13 +137,13 @@ public class PaymentEnviroment extends AppCompatActivity {
                     @Override
                     public void run() {
                         saveTicket();
-                        startActivity(new Intent(PaymentEnviroment.this, MyTickets.class));
+                        startActivity(new Intent(PaymentEnviroment.this, MainActivity.class));
                         finish();
                     }
                 },2500);
 
             }
-        });
+        });//---------------------
 
 
     }
