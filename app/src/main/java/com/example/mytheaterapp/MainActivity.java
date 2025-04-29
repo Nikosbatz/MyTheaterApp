@@ -60,6 +60,21 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        // OPENAI API TEST ------------
+        OpenAi.chatGPT("Hello which model are you", new OpenAi.Callback(){
+            @Override
+            public void onResponse(String result) {
+                runOnUiThread(() -> Log.d("api", result));
+            }
+
+            @Override
+            public void onError(Exception e) {
+                runOnUiThread(() -> Log.d("api", "ERROR"));
+            }
+        } );
+        // OPENAI API TEST ------------
+
+
 
         // button functionality to open ChatBot
         bottom_nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
