@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.zxing.WriterException;
+
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -129,10 +131,19 @@ public class ChatBotActivity extends AppCompatActivity {
                 response = "You are being transfered to a safe enviroment to place your order based on the details you provided...";
 
                 // Build Ticket object and pass it to the PaymentEnviroment activity
-                Ticket ticket = new Ticket(frames.get("performance"), frames.get("date"), frames.get("number_of_tickets"));
-                Intent intent = new Intent(ChatBotActivity.this, PaymentEnviroment.class);
-                intent.putExtra("ticket", ticket);
-                startActivity(intent);
+
+                try {
+                    Ticket ticket = new Ticket(frames.get("performance"), frames.get("date"), frames.get("number_of_tickets"));
+                    Intent intent = new Intent(ChatBotActivity.this, PaymentEnviroment.class);
+                    intent.putExtra("ticket", ticket);
+                    startActivity(intent);
+                }
+                catch (WriterException e){
+                    Log.d("DEBUG", "Ticket Constructor WriterException!!");
+                }
+
+
+
             }
         }
 

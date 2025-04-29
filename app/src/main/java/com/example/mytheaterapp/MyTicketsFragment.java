@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.zxing.WriterException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,7 +91,12 @@ public class MyTicketsFragment extends Fragment {
         // Instantiate Ticket objects from the jsonObjects
         ArrayList<Ticket> tickets = new ArrayList<>();
         for (JSONObject ticketJSON: ticketJSONs){
-            tickets.add(new Ticket(ticketJSON));
+            try {
+                tickets.add(new Ticket(ticketJSON));
+            }
+            catch (WriterException e){
+            }
+
 
         }
 

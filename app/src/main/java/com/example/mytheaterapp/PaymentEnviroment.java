@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -137,7 +138,9 @@ public class PaymentEnviroment extends AppCompatActivity {
                     @Override
                     public void run() {
                         saveTicket();
-                        startActivity(new Intent(PaymentEnviroment.this, MainActivity.class));
+                        Intent intent = new Intent(PaymentEnviroment.this, MainActivity.class);
+                        intent.putExtra("flag", true);
+                        startActivity(intent);
                         finish();
                     }
                 },2500);
@@ -156,6 +159,8 @@ public class PaymentEnviroment extends AppCompatActivity {
             ticketJson.put("performance", ticket.getPerformance());
             ticketJson.put("date", ticket.getId());
             ticketJson.put("seats", ticket.getSeats());
+            Log.d("DEBUG", "Ticketbase64CODE:" + ticket.getBase64QRcode() );
+            ticketJson.put("qrcode", ticket.getBase64QRcode());
             fos.write(ticketJson.toString().getBytes());
             Toast.makeText(this, "Ticket saved!", Toast.LENGTH_SHORT).show();
         } catch (IOException | JSONException e) {

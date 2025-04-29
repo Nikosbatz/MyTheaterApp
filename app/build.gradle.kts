@@ -42,4 +42,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("com.vinaygaba:creditcardview:1.0.4")
     implementation("com.vipulasri:ticketview:1.1.2")
+    implementation ("com.google.zxing:core:3.5.2")
+    implementation ("com.google.zxing:javase:3.5.2")
 }

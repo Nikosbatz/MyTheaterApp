@@ -3,6 +3,7 @@ package com.example.mytheaterapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         holder.performanceTextView.setText(ticket.getPerformance());
         holder.seatsTextView.setText(ticket.getSeats().toString().replaceAll("[\\[\\],]", ""));
         holder.idTextView.setText(ticket.getId());
+        holder.QRcodeImageView.setImageBitmap(ticket.getQRcodeBitMap());
     }
 
     @Override
@@ -41,12 +43,14 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
 
     public static class TicketViewHolder extends RecyclerView.ViewHolder {
         TextView performanceTextView, idTextView, seatsTextView;
+        ImageView QRcodeImageView;
 
         public TicketViewHolder(View itemView) {
             super(itemView);
             performanceTextView = itemView.findViewById(R.id.ticket_performance);
             idTextView = itemView.findViewById(R.id.ticket_id);
             seatsTextView = itemView.findViewById(R.id.ticket_seats);
+            QRcodeImageView = itemView.findViewById((R.id.barCode));
         }
     }
 }

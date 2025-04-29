@@ -26,6 +26,7 @@
     </com.vipulasri.ticketview.TicketView>
 
     <LinearLayout
+        android:id="@+id/ticketInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/ticketView"
@@ -83,7 +84,22 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textSize="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="145dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/ticketView"
+        android:layout_alignEnd="@+id/ticketView"
+        android:layout_alignBottom="@+id/ticketView"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/barCode"
+            android:layout_height="150dp"
+            android:layout_width="135dp"/>
 
     </LinearLayout>
+
 
 </RelativeLayout>

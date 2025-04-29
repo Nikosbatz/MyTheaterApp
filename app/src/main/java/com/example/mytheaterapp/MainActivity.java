@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        boolean startedByActivity = getIntent().getBooleanExtra("flag", false);
+        Log.d("DEBUG", ""+startedByActivity);
+
+
         // For DEBUGGING purposes
         //deleteInternalFiles(this);
         //-------------
@@ -42,10 +46,19 @@ public class MainActivity extends AppCompatActivity {
         myTicketsIcon = bottom_nav.getMenu().findItem(R.id.myTickets_icon);
 
 
-        // Load HomeFragment By Default
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout, new HomeFragment())
-                .commit();
+        if (!startedByActivity) {
+            // Load HomeFragment by default
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame_layout, new HomeFragment())
+                    .commit();
+        }
+        else {
+            // Load MyTicketsFragment if the activity is started after payment
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame_layout, new MyTicketsFragment())
+                    .commit();
+
+        }
 
 
         // button functionality to open ChatBot
