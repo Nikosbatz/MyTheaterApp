@@ -29,6 +29,8 @@ public class MyTicketsFragment extends Fragment {
     private TicketAdapter ticketAdapter;
     private ArrayList<Ticket> tickets;
     private Context context;
+
+    // Empty constructor
     MyTicketsFragment(){}
 
     @Override
@@ -56,7 +58,7 @@ public class MyTicketsFragment extends Fragment {
         return view;
     }
 
-    private ArrayList<Ticket> loadTickets(Context context) throws JSONException {
+    public static ArrayList<Ticket> loadTickets(Context context) throws JSONException {
         File directory = context.getFilesDir(); // Get internal storage directory
 
         // Filter files that contain "ticket" in the name

@@ -74,10 +74,10 @@ public class Ticket implements Serializable {
     }
 
     private void generateRandomID() {
-        String ALLOWED_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        String ALLOWED_CHARACTERS = "abcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
-        StringBuilder sb = new StringBuilder(8);
-        for (int i = 0; i < 8; i++) {
+        StringBuilder sb = new StringBuilder(5);
+        for (int i = 0; i < 5; i++) {
             int randomIndex = random.nextInt(ALLOWED_CHARACTERS.length());
             char randomChar = ALLOWED_CHARACTERS.charAt(randomIndex);
             sb.append(randomChar);

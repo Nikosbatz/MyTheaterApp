@@ -9,11 +9,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ChatBot {
 
@@ -26,7 +28,6 @@ public class ChatBot {
 
         performanceDetails.put("performance1", "Performance1 details following...");
         performanceDetails.put("performance2", "Performance2 details following...");
-        String filePath = "intents.json"; // path to .json
         Intent book_ticket = new Intent("book_ticket");
         Intent cancel_ticket = new Intent("cancel_ticket");
         Intent request_info = new Intent("request_info");
@@ -38,7 +39,7 @@ public class ChatBot {
         intents.add(request_support);
 
         // Load .json file from the "/app/src/main/assets/" dir
-        String jsonString = loadJsonFromAssets(context, filePath);
+        String jsonString = loadJsonFromAssets(context, "intents.json");
 
         // Parsing the JSON content
         JSONObject jsonObject = new JSONObject(jsonString);
@@ -95,7 +96,7 @@ public class ChatBot {
         return frames;
     }
 
-    public String analyzeUserInput(String input){
+    public String analyzeUserInput(String input, Context context) throws JSONException {
 
         String response = null ;
         input = input.toLowerCase();
@@ -105,6 +106,7 @@ public class ChatBot {
         /* Analyze the input and find the Intent of the user */
         for (Intent intent: intents){
             for (String word: intent.getWordlist()){
+                // if new intent is detected
                 if (input.contains(word) & this.currentIntent != intent){
                     this.currentIntent = intent;
                     if (currentIntent.getName().equals("request_support")){
@@ -133,12 +135,30 @@ public class ChatBot {
             }
         }
 
+        // If the intention is to cancel ticket and the input is 5 characters long then check if there
+        // is an existing ticket with this ID and delete it
+        if (currentIntent.getName().equals("cancel_ticket") && input.length() == 5){
+            ArrayList<Ticket> tickets = MyTicketsFragment.loadTickets(context);
+            for (Ticket ticket: tickets){
+                if (ticket.getId().equals(input) ){
+                    File dir = context.getFilesDir(); // Get internal storage directory
+                    for (File file: Objects.requireNonNull(dir.listFiles())){
+                        if (file.getName().equals("ticket"+input+".json")){
+                            frames.put("ticket_id", input);
+                            file.delete();
+                        }
+                    }
+                }
+            }
+        }
+
         for (String entity : frames.keySet()){
             if (frames.get(entity) == null && entity.equals("performance") && currentIntent.getName().equals("book_ticket")){
-                response = "For which performance would you like to make the booking?";
+                response = "For which performance would you like to make the booking?\n1. Hamlet\n2. Death of a Salesman";
             }
             else if(frames.get(entity) == null && entity.equals("performance") && currentIntent.getName().equals("request_info")){
-                response = "Please mention the performance for which you would like to get informed...";
+                response = "Currently there are 2 performances playing in our Theater:\n1. Hamlet by William Shakespeare\n" +
+                "2. Death of a Salesman by Arthur Miller\nFor which one would you like to learn more?";
             }
             else if(frames.get(entity) != null && entity.equals("performance") && currentIntent.getName().equals("request_info")){
                 response = performanceDetails.get(frames.get(entity));
@@ -150,10 +170,10 @@ public class ChatBot {
                 response = "Please specify the number of tickets you would like to book";
             }
             else if(frames.get(entity) == null && entity.equals("ticket_id")){
-                response = "Please specify the ticket ID of the ticket you would like to cancel";
+                response = "Please specify the ticket ID of the ticket you would like to cancel\n(The ticket id is a 5 character word on your ticket)";
             }
             else if (frames.get(entity) != null && entity.equals("ticket_id")){
-                response = "Cancelling your reservation... Hope to see you next time!";
+                response = "Cancelling your reservation with id +"+ input +" ... Hope to see you next time!";
             }
         }
 

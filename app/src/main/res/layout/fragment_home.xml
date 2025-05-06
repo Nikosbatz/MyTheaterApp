@@ -3,11 +3,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HOME SCREEN"
-        android:textSize="30dp"
-        android:layout_gravity="center"/>
 
+    <LinearLayout
+        android:id="@+id/playing_now_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="70dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/rounded_border"
+        android:backgroundTint="#80464D">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="cursive"
+            android:text="Playing now..."
+            android:textSize="35dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+
+            <ImageView
+                android:id="@+id/hamlet_img"
+                android:layout_width="150dp"
+                android:layout_height="220dp"
+                android:src="@drawable/hamlet"
+                android:layout_marginRight="70dp"
+                android:background="@drawable/rounded_border"
+                android:clipToOutline="true"
+                android:backgroundTint="#80464D"
+                />
+
+            <ImageView
+                android:id="@+id/death_img"
+                android:layout_width="150dp"
+                android:layout_height="220dp"
+                android:background="@drawable/rounded_border"
+                android:backgroundTint="#80464D"
+                android:clipToOutline="true"
+                android:src="@drawable/deathofasalesman" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/play_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/white"/>
+    </LinearLayout>
 </FrameLayout>
+
+
+

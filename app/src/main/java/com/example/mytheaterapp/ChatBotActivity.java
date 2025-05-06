@@ -1,5 +1,6 @@
 package com.example.mytheaterapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -80,19 +81,31 @@ public class ChatBotActivity extends AppCompatActivity {
         infoButtonOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleInitialOptionSelection("info", (String) infoButtonOption.getText());
+                try {
+                    handleInitialOptionSelection("info", (String) infoButtonOption.getText());
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         bookButtonOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleInitialOptionSelection("booking", (String) bookButtonOption.getText());
+                try {
+                    handleInitialOptionSelection("booking", (String) bookButtonOption.getText());
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         supportButtonOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleInitialOptionSelection("support", (String) supportButtonOption.getText());
+                try {
+                    handleInitialOptionSelection("support", (String) supportButtonOption.getText());
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -101,18 +114,22 @@ public class ChatBotActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String input = userEditText.getText().toString().trim();
                 if (!input.isEmpty()) {
-                    handleUserInput(input);
+                    try {
+                        handleUserInput(input);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
                     userEditText.setText("");
                 }
             }
         });
 
     }
-    private void handleUserInput(String input) {
+    private void handleUserInput(String input) throws JSONException {
         addMessage("🧑‍💬 " + input, true);
 
         // Get response from the ChatBot based on the user input
-        String response = chat_bot.analyzeUserInput(input);
+        String response = chat_bot.analyzeUserInput(input, this);
 
         HashMap <String, String> frames = chat_bot.getFrames();
         String currentIntentName = chat_bot.getCurrentIntentName();
@@ -141,55 +158,21 @@ public class ChatBotActivity extends AppCompatActivity {
                 catch (WriterException e){
                     Log.d("DEBUG", "Ticket Constructor WriterException!!");
                 }
-
-
-
             }
         }
 
         addMessage(response, false);
 
 
-        /*
-        if (input.toLowerCase().contains("info") || input.toLowerCase().contains("information")) {
-            response = "🎭 ";
-            misunderstandingCount = 0;
-        } else if (input.toLowerCase().contains("οθέλλος")) {
-            response = "🕒 Θέλετε απογευματινή (18:00) ή βραδινή (21:00) παράσταση;";
-            misunderstandingCount = 0;
-        } else if (input.toLowerCase().contains("βραδινή")) {
-            response = "🎟️ Πόσα εισιτήρια θέλετε;";
-            misunderstandingCount = 0;
-        } else if (input.matches("\\d+")) {
-            response = "✅ Επιβεβαιώνετε την κράτηση για " + input + " εισιτήρια για τη βραδινή παράσταση 'skibidi';";
-            misunderstandingCount = 0;
-        } else if (input.toLowerCase().contains("ναι")) {
-            response = "🎉 Η κράτησή σας ολοκληρώθηκε! Καλή διασκέδαση!";
-            misunderstandingCount = 0;
-        } else {
-            misunderstandingCount++;
-            if (misunderstandingCount >= 3) {
-                response = "❗ Φαίνεται ότι δεν καταλαβαίνω. Θέλετε να μιλήσετε με έναν εκπρόσωπο;";
-                misunderstandingCount = 0;
-            } else {
-                response = "❓ Συγγνώμη, δεν καταλαβαίνω. Μπορείτε να το διατυπώσετε διαφορετικά;";
-            }
-        }*/
-
-
     }
 
 
-    private void handleInitialOptionSelection(String selection, String userText){
+    private void handleInitialOptionSelection(String selection, String userText) throws JSONException {
 
         if (selection.equals("info")){
-            addMessage(userText, true);
-            String response = "Currently we have 2 performances playing in our Theater:\n1)Kamikazi agapi mou \n 2)H xionati kai oi 7 barbatoi\nWould you like to book your seat for any of these plays? If yes please mention the play's title or the number (1 or 2)";
-            addMessage(response,false);
+            handleUserInput(userText);
         } else if (selection.equals("booking")) {
-            addMessage(userText, true);
-            String response = "Would you like to make a booking for\n1)Kamikazi agapi mou \n or \n 2)H xionati kai oi 7 barbatoi";
-            addMessage(response,false);
+            handleUserInput(userText);
         } else {
             addMessage(userText, true);
             String response = "I am dialing the theater's support desk for you...";
