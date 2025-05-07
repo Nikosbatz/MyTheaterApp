@@ -27,18 +27,18 @@ public class Ticket implements Serializable {
     private String performance;
     private String id;
     private String date;
+    private String time;
     private ArrayList<Integer> seats;
-    private boolean isActive;
     private int quantity;
     private String base64QRcode;
 
 
 
-    public Ticket(String performance, String date, String quantity) throws WriterException {
+    public Ticket(String performance, String date, String time, String quantity) throws WriterException {
         this.performance = performance;
         this.date = date;
+        this.time = time;
         this.quantity = Integer.parseInt(quantity);
-        isActive = false;
         seats = new ArrayList<>();
 
         // Generate random id for the ticket
@@ -59,6 +59,7 @@ public class Ticket implements Serializable {
         this.date = ticketJSON.getString("date");
         this.performance = ticketJSON.getString("performance");
         this.base64QRcode = ticketJSON.getString("qrcode");
+        this.time = ticketJSON.getString("time");
 
 
         // Retrieving JSONArray and converting it back to ArrayList<Integer>
@@ -152,5 +153,13 @@ public class Ticket implements Serializable {
 
     public String getBase64QRcode() {
         return base64QRcode;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

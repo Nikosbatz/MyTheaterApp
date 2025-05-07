@@ -157,7 +157,9 @@ public class PaymentEnviroment extends AppCompatActivity {
             JSONObject ticketJson = new JSONObject();
             ticketJson.put("id", ticket.getId());
             ticketJson.put("performance", ticket.getPerformance());
-            ticketJson.put("date", ticket.getId());
+            ticketJson.put("date", ticket.getDate());
+
+            ticketJson.put("time", ticket.getTime());
             ticketJson.put("seats", ticket.getSeats());
             Log.d("DEBUG", "Ticketbase64CODE:" + ticket.getBase64QRcode() );
             ticketJson.put("qrcode", ticket.getBase64QRcode());

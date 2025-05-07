@@ -33,6 +33,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         holder.seatsTextView.setText(ticket.getSeats().toString().replaceAll("[\\[\\],]", ""));
         holder.idTextView.setText(ticket.getId());
         holder.QRcodeImageView.setImageBitmap(ticket.getQRcodeBitMap());
+        holder.date_and_timeTextView.setText(ticket.getDate() + " | " + ticket.getTime());
     }
 
     @Override
@@ -42,7 +43,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
 
 
     public static class TicketViewHolder extends RecyclerView.ViewHolder {
-        TextView performanceTextView, idTextView, seatsTextView;
+        TextView performanceTextView, idTextView, seatsTextView, date_and_timeTextView;
         ImageView QRcodeImageView;
 
         public TicketViewHolder(View itemView) {
@@ -51,6 +52,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
             idTextView = itemView.findViewById(R.id.ticket_id);
             seatsTextView = itemView.findViewById(R.id.ticket_seats);
             QRcodeImageView = itemView.findViewById((R.id.barCode));
+            date_and_timeTextView = itemView.findViewById(R.id.ticket_date_and_time);
         }
     }
 }

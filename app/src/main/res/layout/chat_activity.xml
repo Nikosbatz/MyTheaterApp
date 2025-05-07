@@ -87,6 +87,16 @@
                 android:textColor="@color/white" />
 
             <Button
+                android:id="@+id/cancelTicketOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/user_chat_shape"
+                android:text="I want to cancel a ticket."
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Button
                 android:id="@+id/supportButtonOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

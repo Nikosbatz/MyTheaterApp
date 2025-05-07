@@ -2,6 +2,7 @@ package com.example.mytheaterapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,6 @@ public class MyTicketsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_my_tickets, container, false);
         context = getActivity();
-
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));

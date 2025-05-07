@@ -65,6 +65,7 @@ public class ChatBotActivity extends AppCompatActivity {
         Button infoButtonOption = findViewById(R.id.infoButtonOption);
         Button bookButtonOption = findViewById(R.id.bookButtonOption);
         Button supportButtonOption = findViewById(R.id.supportButtonOption);
+        Button cancelTicketOption = findViewById(R.id.cancelTicketOption);
         initialOptionsButtons.add(infoButtonOption);
         initialOptionsButtons.add(bookButtonOption);
         initialOptionsButtons.add(supportButtonOption);
@@ -93,6 +94,16 @@ public class ChatBotActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     handleInitialOptionSelection("booking", (String) bookButtonOption.getText());
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        cancelTicketOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    handleInitialOptionSelection("cancel", (String) cancelTicketOption.getText());
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -150,7 +161,8 @@ public class ChatBotActivity extends AppCompatActivity {
                 // Build Ticket object and pass it to the PaymentEnviroment activity
 
                 try {
-                    Ticket ticket = new Ticket(frames.get("performance"), frames.get("date"), frames.get("number_of_tickets"));
+
+                    Ticket ticket = new Ticket(frames.get("performance"), frames.get("date"), frames.get("time"), frames.get("number_of_tickets"));
                     Intent intent = new Intent(ChatBotActivity.this, PaymentEnviroment.class);
                     intent.putExtra("ticket", ticket);
                     startActivity(intent);
@@ -172,6 +184,8 @@ public class ChatBotActivity extends AppCompatActivity {
         if (selection.equals("info")){
             handleUserInput(userText);
         } else if (selection.equals("booking")) {
+            handleUserInput(userText);
+        } else if (selection.equals("cancel")) {
             handleUserInput(userText);
         } else {
             addMessage(userText, true);

@@ -1,8 +1,13 @@
 package com.example.mytheaterapp;
 
+import java.util.regex.*;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,8 +31,17 @@ public class ChatBot {
 
     public ChatBot(Context context) throws JSONException {
 
-        performanceDetails.put("performance1", "Performance1 details following...");
-        performanceDetails.put("performance2", "Performance2 details following...");
+        performanceDetails.put("hamlet", "Hamlet: A Modern Theater Remake\n" +
+                "This contemporary remake of Hamlet reimagines Shakespeare’s classic in a stark, modern world ruled by surveillance and " +
+                "suspicion. With minimalist staging, digital projections, and a haunting score, the play explores themes of madness," +
+                " revenge, and identity in a fractured society. Familiar lines are delivered with fresh urgency, making the tragedy " +
+                "feel strikingly relevant today.");
+
+        performanceDetails.put("death", "Death of a Salesman: A Contemporary Remake\n" +
+                "In this powerful reimagining of Arthur Miller’s classic, Death of a Salesman is set in today’s world of economic" +
+                " precarity and fading dreams. With stripped-down staging and modern visuals, Willy Loman’s struggle against" +
+                " failure and illusion becomes a haunting reflection of the pressures of modern success and self-worth.");
+
         Intent book_ticket = new Intent("book_ticket");
         Intent cancel_ticket = new Intent("cancel_ticket");
         Intent request_info = new Intent("request_info");
@@ -133,6 +147,34 @@ public class ChatBot {
                     frames.put(key, word);
                 }
             }
+            // Check if the input contains a booking date (dd/mm/yy/)
+            if (key.equals("date")){
+                String regex = "\\b\\d{2}/\\d{2}/\\d{2}\\b";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(input);
+                String dateString = "";
+                if(matcher.find()) {
+
+                    dateString = matcher.group();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+                    LocalDate date = null;
+                    try {
+                        date = LocalDate.parse(dateString, formatter);
+                    }
+                    catch (java.time.format.DateTimeParseException e){
+                        return "Invalid Date!\nPlease try a different one (dd/mm/yy)";
+                    }
+
+                    LocalDate currentDate = LocalDate.now();
+
+                    if(date.isAfter(currentDate) || date.equals(currentDate)){
+                        frames.put(key,dateString);
+                    }
+                    else {
+                        return "The date for the ticket must be equal to "+currentDate.toString()+" or later...";
+                    }
+                }
+            }
         }
 
         // If the intention is to cancel ticket and the input is 5 characters long then check if there
@@ -161,10 +203,16 @@ public class ChatBot {
                 "2. Death of a Salesman by Arthur Miller\nFor which one would you like to learn more?";
             }
             else if(frames.get(entity) != null && entity.equals("performance") && currentIntent.getName().equals("request_info")){
-                response = performanceDetails.get(frames.get(entity));
+                if (frames.get(entity).contains("hamlet")){
+                    response = performanceDetails.get("hamlet");
+                }
+                else if(frames.get(entity).contains("death") || frames.get(entity).contains("salesman")) {
+                    response = performanceDetails.get("death");
+                }
+
             }
             else if(frames.get(entity) == null && entity.equals("date")){
-                response = "Please mention the date and time of performance you would like";
+                response = "Please specify the date (dd/mm/yy) and time (afternoon or night) of performance you would like";
             }
             else if(frames.get(entity) == null && entity.equals("number_of_tickets")){
                 response = "Please specify the number of tickets you would like to book";
@@ -173,7 +221,7 @@ public class ChatBot {
                 response = "Please specify the ticket ID of the ticket you would like to cancel\n(The ticket id is a 5 character word on your ticket)";
             }
             else if (frames.get(entity) != null && entity.equals("ticket_id")){
-                response = "Cancelling your reservation with id +"+ input +" ... Hope to see you next time!";
+                response = "Cancelling your reservation with id "+ input +" ... Hope to see you next time!";
             }
         }
 

@@ -5,7 +5,8 @@
       "wordlist": ["book", "reserve", "booking", "reservation"],
       "entities": [
         { "name": "performance" , "wordlist": ["hamlet", "death of a salesman"]},
-        { "name": "date", "wordlist": ["afternoon", "night", "on", "at", "by", "o"]},
+        { "name": "date", "wordlist": []},
+        { "name": "time", "wordlist": ["afternoon", "night"]},
         { "name": "number_of_tickets", "wordlist": ["1","2","3","4","5", "one","two","three","four","five"]}
       ]
     },
@@ -20,7 +21,7 @@
       "name": "request_info",
       "wordlist": ["info", "information", "details", "more"],
       "entities": [
-        { "name": "performance", "wordlist": ["hamlet", "death of a salesman"]}
+        { "name": "performance", "wordlist": ["hamlet", "death of a salesman", "william", "shakespeare", "death", "salesman", "arthur", "miller"]}
       ]
     },
     {
