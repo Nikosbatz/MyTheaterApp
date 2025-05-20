@@ -3,7 +3,9 @@ package com.example.mytheaterapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -142,6 +144,13 @@ public class ChatBotActivity extends AppCompatActivity {
         // Get response from the ChatBot based on the user input
         String response = chat_bot.analyzeUserInput(input, this);
 
+        if (chat_bot.getCurrentIntentName().equals("request_support")){
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:1234567890"));
+            startActivity(intent);
+
+        }
+
         HashMap <String, String> frames = chat_bot.getFrames();
         String currentIntentName = chat_bot.getCurrentIntentName();
         boolean isBookingFrameComplete = true;
@@ -149,6 +158,7 @@ public class ChatBotActivity extends AppCompatActivity {
         // Check if all the frames are completed
         if (currentIntentName != null && currentIntentName.equals("book_ticket")){
             for (String value : frames.values()){
+                Log.d("DEBUG", value + " ");
                 if (value == null){
                     isBookingFrameComplete = false;
                     break;
@@ -161,6 +171,13 @@ public class ChatBotActivity extends AppCompatActivity {
                 // Build Ticket object and pass it to the PaymentEnviroment activity
 
                 try {
+                    if (frames.get("hamlet").equals(" ")){
+                        frames.put("performance", "death of a salesman");
+                    }
+                    else{
+                        frames.put("performance", "hamlet");
+                        Log.d("DEBUG", "poia mpike: " + frames.get("performance"));
+                    }
 
                     Ticket ticket = new Ticket(frames.get("performance"), frames.get("date"), frames.get("time"), frames.get("number_of_tickets"));
                     Intent intent = new Intent(ChatBotActivity.this, PaymentEnviroment.class);
@@ -188,9 +205,21 @@ public class ChatBotActivity extends AppCompatActivity {
         } else if (selection.equals("cancel")) {
             handleUserInput(userText);
         } else {
+
             addMessage(userText, true);
             String response = "I am dialing the theater's support desk for you...";
             addMessage(response,false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:1234567890"));
+                    startActivity(intent);
+                }
+            },800);
+
+
+
         }
 
         userEditText.setEnabled(true);

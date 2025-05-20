@@ -1,9 +1,14 @@
 package com.example.mytheaterapp;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import java.util.regex.*;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
+
+import android.content.Intent;
+import android.net.Uri;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -195,24 +200,38 @@ public class ChatBot {
         }
 
         for (String entity : frames.keySet()){
-            if (frames.get(entity) == null && entity.equals("performance") && currentIntent.getName().equals("book_ticket")){
+            if (frames.get("hamlet") == null && frames.get("death of a salesman") == null && currentIntent.getName().equals("book_ticket")){
                 response = "For which performance would you like to make the booking?\n1. Hamlet\n2. Death of a Salesman";
             }
-            else if(frames.get(entity) == null && entity.equals("performance") && currentIntent.getName().equals("request_info")){
+            else if (frames.get(entity) == null & entity.equals("hamlet") && frames.get("death of a salesman") != null && currentIntent.getName().equals("book_ticket")){
+                frames.put(entity, " ");
+            }
+            else if (frames.get(entity) == null & entity.equals("death of a salesman") && frames.get("hamlet") != null && currentIntent.getName().equals("book_ticket")){
+                frames.put(entity, " ");
+            }
+            else if(frames.get("hamlet") == null && frames.get("death of a salesman") == null && currentIntent.getName().equals("request_info")){
                 response = "Currently there are 2 performances playing in our Theater:\n1. Hamlet by William Shakespeare\n" +
                 "2. Death of a Salesman by Arthur Miller\nFor which one would you like to learn more?";
+
             }
-            else if(frames.get(entity) != null && entity.equals("performance") && currentIntent.getName().equals("request_info")){
-                if (frames.get(entity).contains("hamlet")){
-                    response = performanceDetails.get("hamlet");
-                }
-                else if(frames.get(entity).contains("death") || frames.get(entity).contains("salesman")) {
-                    response = performanceDetails.get("death");
-                }
+            else if(frames.get(entity) != null && entity.equals("hamlet") && currentIntent.getName().equals("request_info")){
+
+                response = performanceDetails.get("hamlet");
+                frames.put(entity, null);
+                break;
+
+            }
+            else if(frames.get(entity) != null && entity.equals("death of a salesman") && currentIntent.getName().equals("request_info")){
+
+                response = performanceDetails.get("death");
+                frames.put(entity, null);
 
             }
             else if(frames.get(entity) == null && entity.equals("date")){
                 response = "Please specify the date (dd/mm/yy) and time (afternoon or night) of performance you would like";
+            }
+            else if(frames.get(entity) == null && entity.equals("time") && frames.get("date") != null){
+                response = "Would you like to book for the afternoon or night performance?";
             }
             else if(frames.get(entity) == null && entity.equals("number_of_tickets")){
                 response = "Please specify the number of tickets you would like to book";

@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MyTheaterApp" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/primary_color</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
