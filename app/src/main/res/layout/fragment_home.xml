@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="80dp"
         android:layout_marginBottom="5dp"
         android:paddingBottom="10dp"
         android:background="@drawable/rounded_border"
@@ -18,12 +18,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/playwrite_regular"
+            android:gravity="center"
             android:text="Playing now..."
-            android:textSize="35dp"
             android:textColor="@color/white"
-            android:layout_marginTop="10dp"/>
+            android:textSize="35dp" />
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#935C5C" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,30 +39,57 @@
             android:layout_marginBottom="15dp"
             android:layout_marginTop="40dp"
             android:gravity="center"
+            android:orientation="horizontal"
             android:layout_gravity="center">
 
 
-            <ImageView
-                android:id="@+id/hamlet_img"
+            <!-- Overlayed image inside FrameLayout -->
+            <FrameLayout
                 android:layout_width="150dp"
                 android:layout_height="220dp"
-                android:src="@drawable/hamlet"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/rounded_border"
-                android:clipToOutline="true"
-                android:backgroundTint="#80464D"
-                />
+                android:layout_marginRight="30dp">
 
-            <ImageView
-                android:id="@+id/death_img"
+                <ImageView
+                    
+                    android:id="@+id/hamlet_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rounded_border"
+                    android:backgroundTint="#80464D"
+                    android:clipToOutline="true"
+                    android:src="@drawable/hamlet" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:background="@drawable/touch_icon" />
+            </FrameLayout>
+
+            <!-- Overlayed image inside FrameLayout -->
+            <FrameLayout
                 android:layout_width="150dp"
-                android:layout_height="220dp"
-                android:background="@drawable/rounded_border"
-                android:backgroundTint="#80464D"
-                android:clipToOutline="true"
-                android:src="@drawable/deathofasalesman" />
+                android:layout_height="220dp">
+
+                <ImageView
+                    android:id="@+id/death_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rounded_border"
+                    android:backgroundTint="#80464D"
+                    android:clipToOutline="true"
+                    android:src="@drawable/deathofasalesman" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:background="@drawable/touch_icon" />
+            </FrameLayout>
 
         </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/play_info"

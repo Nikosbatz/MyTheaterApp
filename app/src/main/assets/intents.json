@@ -2,7 +2,7 @@
   "intents": [
     {
       "name": "book_ticket",
-      "wordlist": ["book", "reserve", "booking", "reservation"],
+      "wordlist": ["book", "reserve", "booking", "reservation", "buy"],
       "entities": [
         { "name": "death of a salesman", "wordlist": ["death of a salesman", "death", "salesman", "arthur", "miller"]},
         { "name": "hamlet", "wordlist": ["hamlet", "william", "shakespeare"]},
@@ -13,14 +13,14 @@
     },
     {
       "name": "cancel_ticket",
-      "wordlist": ["cancel", "refund"],
+      "wordlist": ["cancel", "refund", "undo", "revoke"],
       "entities": [
         { "name": "ticket_id", "wordlist": ["111", "222", "333", "444"]}
       ]
     },
     {
       "name": "request_info",
-      "wordlist": ["info", "information", "details", "more"],
+      "wordlist": ["info", "information", "details", "more", "describe", "learn about", "plot", "tell me about", "summary"],
       "entities": [
         { "name": "death of a salesman", "wordlist": ["death of a salesman", "death", "salesman", "arthur", "miller"]},
         { "name": "hamlet", "wordlist": ["hamlet", "william", "shakespeare"]}
@@ -28,7 +28,7 @@
     },
     {
       "name": "request_support",
-      "wordlist": ["support", "assistance", "talk to a human", "contact a human"]
+      "wordlist": ["support", "assistance", "talk to a human", "contact a human", "human support", "manual support", "call support", "help desk"]
     }
   ]
 }

@@ -233,6 +233,7 @@ public class ChatBotActivity extends AppCompatActivity {
         TextView textView = buildChatTextView(message, isUser);
         chatContainer.addView(textView);
         scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
+
     }
 
 
