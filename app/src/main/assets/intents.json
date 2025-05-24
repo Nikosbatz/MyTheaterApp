@@ -20,7 +20,7 @@
     },
     {
       "name": "request_info",
-      "wordlist": ["info", "information", "details", "more", "describe", "learn about", "plot", "tell me about", "summary"],
+      "wordlist": ["info", "information", "details", "learn more", "describe", "learn about", "plot", "tell me about", "summary", "available plays"],
       "entities": [
         { "name": "death of a salesman", "wordlist": ["death of a salesman", "death", "salesman", "arthur", "miller"]},
         { "name": "hamlet", "wordlist": ["hamlet", "william", "shakespeare"]}

@@ -50,7 +50,7 @@
                 android:layout_marginRight="30dp">
 
                 <ImageView
-                    
+
                     android:id="@+id/hamlet_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -60,9 +60,9 @@
                     android:src="@drawable/hamlet" />
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom"
                     android:background="@drawable/touch_icon" />
             </FrameLayout>
 
@@ -81,9 +81,9 @@
                     android:src="@drawable/deathofasalesman" />
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom"
                     android:background="@drawable/touch_icon" />
             </FrameLayout>
 
