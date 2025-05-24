@@ -240,7 +240,7 @@ public class ChatBot {
                 response = "Please specify the ticket ID of the ticket you would like to cancel\n(The ticket id is a 5 character word on your ticket)";
             }
             else if (frames.get(entity) != null && entity.equals("ticket_id")){
-                response = "Cancelling your reservation with id "+ input +" ... Hope to see you next time!";
+                response = "Cancelling your reservation with ID '"+ input +"' ... Hope to see you next time!";
             }
         }
 
