@@ -2,9 +2,15 @@ package com.example.mytheaterapp;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.regex.*;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import android.content.Intent;
@@ -33,6 +39,7 @@ public class ChatBot {
     private HashMap<String,String> frames = new HashMap<>();
     private HashMap<String, String> performanceDetails = new HashMap<>();
     private Intent currentIntent;
+    private int invalidInputCount = 0;
 
     public ChatBot(Context context) throws JSONException {
 
@@ -104,43 +111,48 @@ public class ChatBot {
         }
     }
 
-    public String getCurrentIntentName() {
-        if (currentIntent != null){
-            return currentIntent.getName();
-        }
-        else {return null;}
-    }
 
-    public HashMap<String, String> getFrames() {
-        return frames;
-    }
 
     public String analyzeUserInput(String input, Context context) throws JSONException {
+        boolean validInput = false;
 
         String response = null ;
         input = input.toLowerCase();
 
-        ArrayList<String> wordlist = new ArrayList<>();
+        Future<String> futureResponse = OpenAi.chatGPT("I will give you a prompt and i want to detect the intent of it. The possible intents are " +
+                "book_ticket, cancel_ticket, request_info, request_support. If the sentence doesnt refer to one of these intents answer as :None. Your answer" +
+                "should contain only the intent and nothing else. Prompt: " + input);
 
-        /* Analyze the input and find the Intent of the user */
+
+        String intent_from_gpt = "";
+
+        try {
+            intent_from_gpt = futureResponse.get(); // This blocks until response is available
+            Log.d("api", "Response: " + intent_from_gpt);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
         for (Intent intent: intents){
-            for (String word: intent.getWordlist()){
-                // if new intent is detected
-                if (input.contains(word) & this.currentIntent != intent){
-                    this.currentIntent = intent;
-                    if (currentIntent.getName().equals("request_support")){
-                        response = "Forwarding our conversation to a human. Please wait...";
-                        break;
-                    }
-                    // Initialize new frames if intent changed
-                    for (String key: currentIntent.getEntities().keySet() ){
-                        frames.put(key, null);
-                    }
+
+            // if new intent is detected
+            if (intent.getName().equals(intent_from_gpt) & this.currentIntent != intent){
+                this.currentIntent = intent;
+                validInput = true;
+                if (currentIntent.getName().equals("request_support")){
+                    response = "Forwarding our conversation to a human. Please wait...";
                     break;
                 }
+                // Initialize new frames if intent changed
+                for (String key: currentIntent.getEntities().keySet() ){
+                    frames.put(key, null);
+                }
+                break;
             }
+
         }
-        if (currentIntent == null){
+        if (!validInput && currentIntent == null){
             return "I don't understand would you like details about a performance or book a ticket?";
         }
 
@@ -148,6 +160,7 @@ public class ChatBot {
         for (String key : currentIntent.getEntities().keySet()){
             for (String word:currentIntent.getEntities().get(key)){
                 if (input.matches(".*\\b" + word + "\\b.*")){
+                    validInput = true;
                     Log.d("DEBUG", key+word);
                     frames.put(key, word);
                 }
@@ -244,14 +257,39 @@ public class ChatBot {
             }
         }
 
-        //TODO frames implementation and corresponding answers based on the frames missing
+        if (!validInput){
+            invalidInputCount ++;
+            if (invalidInputCount == 1){
+                return "My apologies, I didn't catch that. Could you tell me more clearly what you're looking for?";
+            } else if (invalidInputCount == 2) {
+                return "I'm sorry, I don't understand that request. Could you please rephrase it or ask a different question?";
+            }
+            else if (invalidInputCount == 3){
+                return "I'm sorry, I still don't understand your request. To ensure you get the help you need," +
+                        " if I receive another invalid input, I'll automatically connect you to a live support agent";
+            }
+            else {
+                return "Since I couldn't understand your last request, I'm now dialing our support team who can help.";
+            }
 
-
-
-
+        }
         return response;
     }
 
+
+    public int getInvalidInputCount(){
+        return invalidInputCount;
+    }
+    public String getCurrentIntentName() {
+        if (currentIntent != null){
+            return currentIntent.getName();
+        }
+        else {return null;}
+    }
+
+    public HashMap<String, String> getFrames() {
+        return frames;
+    }
 
 
 
@@ -315,5 +353,7 @@ public class ChatBot {
         }
         return json;
     }
+
+
 
 }

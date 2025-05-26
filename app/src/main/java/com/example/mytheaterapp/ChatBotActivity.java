@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -26,6 +27,8 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ChatBotActivity extends AppCompatActivity {
 
@@ -140,59 +143,79 @@ public class ChatBotActivity extends AppCompatActivity {
     }
     private void handleUserInput(String input) throws JSONException {
         addMessage("🧑‍💬 " + input, true);
+        addMessage("...", false);
 
-        // Get response from the ChatBot based on the user input
-        String response = chat_bot.analyzeUserInput(input, this);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
 
-        if (chat_bot.getCurrentIntentName().equals("request_support")){
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:1234567890"));
-            startActivity(intent);
-
-        }
-
-        HashMap <String, String> frames = chat_bot.getFrames();
-        String currentIntentName = chat_bot.getCurrentIntentName();
-        boolean isBookingFrameComplete = true;
-
-        // Check if all the frames are completed
-        if (currentIntentName != null && currentIntentName.equals("book_ticket")){
-            for (String value : frames.values()){
-                Log.d("DEBUG", value + " ");
-                if (value == null){
-                    isBookingFrameComplete = false;
-                    break;
-                }
+        executor.execute(() -> {
+            // This code runs on a background thread
+            String response;
+            try {
+                response = chat_bot.analyzeUserInput(input, this);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
-            // if all frames are complete and the booking frame is completed transfer client to payment environment
-            if (isBookingFrameComplete){
-                response = "You are being transfered to a safe enviroment to place your order based on the details you provided...";
 
-                // Build Ticket object and pass it to the PaymentEnviroment activity
+            handler.post(() -> {
+                if (chat_bot.getCurrentIntentName().equals("request_support") || chat_bot.getInvalidInputCount() > 3) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(Intent.ACTION_DIAL);
+                            intent.setData(Uri.parse("tel:1234567890"));
+                            startActivity(intent);
+                        }
+                    }, 2500);
+                }
 
-                try {
-                    if (frames.get("hamlet").equals(" ")){
-                        frames.put("performance", "death of a salesman");
+                HashMap <String, String> frames = chat_bot.getFrames();
+                String currentIntentName = chat_bot.getCurrentIntentName();
+                boolean isBookingFrameComplete = true;
+
+                // Check if all the frames are completed
+                if (currentIntentName != null && currentIntentName.equals("book_ticket")){
+                    for (String value : frames.values()){
+                        Log.d("DEBUG", value + " ");
+                        if (value == null){
+                            isBookingFrameComplete = false;
+                            break;
+                        }
+                    }
+                    // if all frames are complete and the booking frame is completed transfer client to payment environment
+                    if (isBookingFrameComplete){
+                        addMessage("You are being transfered to a safe enviroment to place your order based on the details you provided...", false);
+
+                        // Build Ticket object and pass it to the PaymentEnviroment activity
+
+                        try {
+                            if (frames.get("hamlet").equals(" ")){
+                                frames.put("performance", "death of a salesman");
+                            }
+                            else{
+                                frames.put("performance", "hamlet");
+                                Log.d("DEBUG", "poia mpike: " + frames.get("performance"));
+                            }
+
+                            Ticket ticket = new Ticket(frames.get("performance"), frames.get("date"), frames.get("time"), frames.get("number_of_tickets"));
+                            Intent intent = new Intent(ChatBotActivity.this, PaymentEnviroment.class);
+                            intent.putExtra("ticket", ticket);
+                            startActivity(intent);
+                        }
+                        catch (WriterException e){
+                            Log.d("DEBUG", "Ticket Constructor WriterException!!");
+                        }
                     }
                     else{
-                        frames.put("performance", "hamlet");
-                        Log.d("DEBUG", "poia mpike: " + frames.get("performance"));
+                        addMessage(response, false);
                     }
-
-                    Ticket ticket = new Ticket(frames.get("performance"), frames.get("date"), frames.get("time"), frames.get("number_of_tickets"));
-                    Intent intent = new Intent(ChatBotActivity.this, PaymentEnviroment.class);
-                    intent.putExtra("ticket", ticket);
-                    startActivity(intent);
                 }
-                catch (WriterException e){
-                    Log.d("DEBUG", "Ticket Constructor WriterException!!");
+                else {
+                    addMessage(response, false);
                 }
-            }
-        }
 
-        addMessage(response, false);
-
-
+            });
+        });
     }
 
 
@@ -231,6 +254,20 @@ public class ChatBotActivity extends AppCompatActivity {
     private void addMessage(String message, boolean isUser) {
 
         TextView textView = buildChatTextView(message, isUser);
+        // Check to see if the last text is "..." and is not from the user
+        // To create thinking effect
+        if (!isUser){
+            int count = chatContainer.getChildCount();
+            if (count > 0) {
+                View lastView = chatContainer.getChildAt(count - 1);
+                if (lastView instanceof TextView){
+                    TextView lastTextView = (TextView) lastView;
+                    if (lastTextView.getText().equals("...")){
+                        chatContainer.removeViewAt(count - 1);
+                    }
+                }
+            }
+        }// Thinking effect ----------
         chatContainer.addView(textView);
         scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
 

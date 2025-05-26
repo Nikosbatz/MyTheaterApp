@@ -1,12 +1,11 @@
 package com.example.mytheaterapp;
 
-import android.content.ClipData;
+import java.util.concurrent.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -15,9 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
 
         }
+
 
         // button functionality to open ChatBot
         bottom_nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
