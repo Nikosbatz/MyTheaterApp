@@ -7,7 +7,7 @@ import java.util.concurrent.*;
 
 public class OpenAi{
 
-    static private String secretKey = "API-KEY";
+    static private String secretKey = "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\n";
 
     public static Future<String> chatGPT(String prompt) {
         ExecutorService executor = Executors.newSingleThreadExecutor();

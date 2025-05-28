@@ -239,7 +239,7 @@ public class ChatBotActivity extends AppCompatActivity {
                     intent.setData(Uri.parse("tel:1234567890"));
                     startActivity(intent);
                 }
-            },800);
+            },1500);
 
 
 

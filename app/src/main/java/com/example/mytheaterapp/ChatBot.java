@@ -172,7 +172,7 @@ public class ChatBot {
                 Matcher matcher = pattern.matcher(input);
                 String dateString = "";
                 if(matcher.find()) {
-
+                    validInput = true;
                     dateString = matcher.group();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
                     LocalDate date = null;
