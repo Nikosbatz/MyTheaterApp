@@ -204,6 +204,7 @@ public class ChatBot {
                     File dir = context.getFilesDir(); // Get internal storage directory
                     for (File file: Objects.requireNonNull(dir.listFiles())){
                         if (file.getName().equals("ticket"+input+".json")){
+                            validInput = true;
                             frames.put("ticket_id", input);
                             file.delete();
                         }

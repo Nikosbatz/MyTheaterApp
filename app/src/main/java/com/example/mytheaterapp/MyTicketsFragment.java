@@ -104,7 +104,7 @@ public class MyTicketsFragment extends Fragment {
 
 
         // DEBUG
-        Toast.makeText(context, "tickets size:" + tickets.size(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "tickets size:" + tickets.size(), Toast.LENGTH_SHORT).show();
         return tickets;
     }
 

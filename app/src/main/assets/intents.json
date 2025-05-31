@@ -15,7 +15,7 @@
       "name": "cancel_ticket",
       "wordlist": ["cancel", "refund", "undo", "revoke"],
       "entities": [
-        { "name": "ticket_id", "wordlist": ["111", "222", "333", "444"]}
+        { "name": "ticket_id", "wordlist": []}
       ]
     },
     {

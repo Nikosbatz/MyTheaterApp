@@ -169,6 +169,15 @@ public class ChatBotActivity extends AppCompatActivity {
                     }, 2500);
                 }
 
+                if (chat_bot.getCurrentIntentName().equals("cancel_ticket") && chat_bot.getFrames().get("ticket_id") != null) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(ChatBotActivity.this, MainActivity.class));
+                        }
+                    }, 1500);
+                }
+
                 HashMap <String, String> frames = chat_bot.getFrames();
                 String currentIntentName = chat_bot.getCurrentIntentName();
                 boolean isBookingFrameComplete = true;
