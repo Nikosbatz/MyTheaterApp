@@ -37,9 +37,8 @@ This app provides a ticket booking experience by leveraging the OpenAI API to di
 
 ## 📷 Screenshots
 
-![Screenshot_20250624_190103_resized (1)](https://github.com/user-attachments/assets/6f44ec32-b04e-47d5-bccb-e6c8a6733672)
-
-
+![Screenshot_20250624_190151_resized](https://github.com/user-attachments/assets/7f597da8-5027-4ec4-bf3c-be1c2a95e5d6)
+![Screenshot_20250624_190135_resized](https://github.com/user-attachments/assets/3f5431f5-3dfe-4c90-a937-53f63d732d23)
 ![Screenshot_20250624_190103_resized](https://github.com/user-attachments/assets/582d5080-0c60-4b22-94f2-1f687b2dafef)
 
 
