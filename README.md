@@ -37,6 +37,10 @@ This app provides a ticket booking experience by leveraging the OpenAI API to di
 
 ## 📷 Screenshots
 
-> _Add screenshots or screen recordings showing the chat-based booking flow._
+![Screenshot_20250624_190103](https://github.com/user-attachments/assets/d2c13e9f-0a54-4879-a0c0-b5f1191b6c6a)
+![Screenshot_20250624_190151](https://github.com/user-attachments/assets/ddde8041-c132-4000-a9e6-c860e4220e40)
+![Screenshot_20250624_190135](https://github.com/user-attachments/assets/2703b32d-f8b3-4152-9dc7-a2197f87701f)
+
+
 
 ---
